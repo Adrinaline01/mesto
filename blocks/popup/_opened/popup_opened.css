@@ -1,0 +1,10 @@
+.popup_opened {
+  display: flex;
+  margin: 0 auto 0 auto;
+}
+
+@media screen and (max-width: 767px) {
+  .popup_opened {
+    width: 320px;
+  }
+}

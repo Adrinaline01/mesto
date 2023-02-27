@@ -1,0 +1,29 @@
+.add-button {
+  border: 2px solid #FFFFFF;
+  border-radius: 2px;
+  margin: auto 0 auto 0;
+  padding: 0;
+  width: 150px;
+  height: 50px;
+  opacity: 1;
+  transition: opacity 0.5s;
+  background-image: url(../../images/add_button.svg);
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-position: center;
+  cursor: pointer;
+}
+
+.add-button:hover {
+  opacity: 0.6;
+  transition: opacity 0.5s;
+}
+
+@media screen and (max-width: 767px) {
+  .add-button {
+    width: 282px;
+    height: 50px;
+    margin: 15px auto 0 auto;
+    background-image: url(../../images/add_button_mobile.svg);
+  }
+}

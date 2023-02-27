@@ -1,0 +1,17 @@
+.popup__activity {
+  padding: 0 0 13px 0;
+  margin-bottom: 0;
+  width: 358px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #000000;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+@media screen and (max-width: 767px) {
+  .popup__activity {
+    width: 238px;
+  }
+}
