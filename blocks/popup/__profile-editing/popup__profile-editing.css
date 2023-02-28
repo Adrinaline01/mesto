@@ -1,7 +1,7 @@
 .popup__profile-editing {
   display: flex;
   flex-direction: column;
-  margin: 54px auto 48px auto;
+  margin: 54px auto 36px auto;
 }
 
 @media screen and (max-width: 767px) {
