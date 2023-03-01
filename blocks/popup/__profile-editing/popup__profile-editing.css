@@ -6,6 +6,6 @@
 
 @media screen and (max-width: 767px) {
   .popup__profile-editing {
-    margin: 75px auto 0 auto;
+    margin: 75px 0 0 0;
   }
 }

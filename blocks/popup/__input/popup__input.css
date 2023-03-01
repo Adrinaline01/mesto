@@ -14,5 +14,7 @@
   .popup__input {
     width: 238px;
     margin-bottom: 24px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
