@@ -19,6 +19,7 @@ const profileActivity = document.querySelector('.profile__activity');
 const cardsList = document.querySelector('.cards__list');
 const cardsTemplate = document.querySelector('.cards-template').content;
 
+
 const initialCards = [
   {
     name: 'Архыз',
