@@ -27,9 +27,9 @@
       </div>
       <button class="profile__add-button button" type="button" aria-label="Добавить"></button>
     </section>
-    <section class="elements">
-      <ul class="elements__list">
-        <li class="elements__item">
+    <section class="cards">
+      <ul class="cards__list">
+        <!-- <li class="elements__item">
           <img class="elements__photo" src="./images/dombai.jpg"
             alt="На переднем плане красуется жёлто-зелёный лес Домбая, а на заднем горы">
           <div class="elements__depiction">
@@ -76,7 +76,7 @@
             <h2 class="elements__title">Краснодар</h2>
             <button class="elements__like button" type="button" aria-label="Поставить лайк"></button>
           </div>
-        </li>
+        </li> -->
       </ul>
     </section>
   </main>
@@ -84,17 +84,40 @@
     <p class="footer__copyright">&copy; 2023 Mesto Russia</p>
   </footer>
 
-  <div class="popup">
-    <div class="popup__container">
-      <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="popup__profile-editing" name="profile">
+  <div class="popup popup_editing">
+    <div class="popup__container popup__container_editing">
+      <h2 class="popup__title popup__title_editing">Редактировать профиль</h2>
+      <form class="popup__form popup__form_profile" name="profile">
         <input class="popup__input popup__input_content_name" type="text" name="name" required placeholder="Введите имя">
         <input class="popup__input popup__input_content_activity" type="text" name="activity" required placeholder="Введите род деятельности">
-        <button class="popup__save-btn button">Сохранить</button>
+        <button class="popup__save-btn button popup__save-btn_editing">Сохранить</button>
       </form>
-      <button class="popup__close-btn button" type="button"></button>
+      <button class="popup__close-btn button popup__close-btn_editing" type="button"></button>
     </div>
   </div>
+
+  <div class="popup popup_cards-add">
+    <div class="popup__container popup__container_cards-add">
+      <h2 class="popup__title popup__title_cards-add">Новое место</h2>
+      <form class="popup__form popup__form_cards-add" name="cards">
+        <input class="popup__input popup__input_content_appellation" type="text" name="appellation" required placeholder="Название">
+        <input class="popup__input popup__input_content_link" type="text" name="link" required placeholder="Ссылка на картинку">
+        <button class="popup__save-btn button popup__save-btn_cards-add">Создать</button>
+      </form>
+      <button class="popup__close-btn button popup__close-btn_cards-add" type="button"></button>
+    </div>
+  </div>
+
+  <template class="cards-template">
+    <li class="cards__item">
+      <button class="cards__removal button" type="button" aria-label="Удалить карточку"></button>
+      <img class="cards__photo" src="" alt="">
+      <div class="cards__depiction">
+        <h2 class="cards__title"></h2>
+        <button class="cards__like button" type="button" aria-label="Поставить лайк"></button>
+      </div>
+    </li>
+  </template>
   <script src="./script/script.js"></script>
 </body>
 
