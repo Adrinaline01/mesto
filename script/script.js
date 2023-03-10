@@ -27,21 +27,29 @@ const buttonPopupCloseViewPicture = document.querySelector('.popup__close-btn_vi
 const photo = document.querySelector('.popup__input_content_link');
 const appellation = document.querySelector('.popup__input_content_appellation');
 
+const arrayValidation = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save-btn',
+  inputErrorClass: 'popup__input_error',
+  errorClass: 'popup__error_visible'
+};             
+
 
 function handlePopupDefault (evt) {
   evt.preventDefault();
 }
 
 function openPopup(popup) {
-  popup.classList.toggle('popup_opened');
+  popup.classList.add('popup_opened');
 }
 
 function closePopup(popup) {
-  popup.classList.toggle('popup_opened');
+  popup.classList.remove('popup_opened');
 }
 
 
-function toggleOpenedPopupEdit () {
+function openedPopupEdit () {
   openPopup(popupEditing);
 }
 
@@ -66,22 +74,30 @@ function handleFormSubmit () {
     profileActivity.textContent = inputActivity.value;
   }
 
-function toggleOpenedPopupCardsAdd () {
+function openedPopupCardsAdd () {
   openPopup(popupCardsAdd);
 }
 
+function closedPopupCardsAdd () {
+  closePopup(popupCardsAdd);
+}
+
 function handleClosePopupClickCardsAdd () {
-  toggleOpenedPopupCardsAdd();
+  closedPopupCardsAdd();
 }
 
 function handleOverlayClickCardsAdd (event) {
   if (event.target === event.currentTarget) {
-    toggleOpenedPopupCardsAdd();
+    closedPopupCardsAdd();
   }
 }
 
-function toggleOpenedPopupViewPicture () {
+function openedPopupViewPicture () {
   openPopup(popupViewPicture);
+}
+
+function closedPopupViewPicture () {
+  closePopup(popupViewPicture);
 }
 
 function handleOpenedPopupClickViewPicture (item, event) {
@@ -91,12 +107,12 @@ function handleOpenedPopupClickViewPicture (item, event) {
 }
 
 function handleClosePopupClickViewPicture () {
-  toggleOpenedPopupViewPicture();
+  closedPopupViewPicture();
 }
 
 function handleOverlayClickViewPicture (event) {
   if (event.target === event.currentTarget) {
-    toggleOpenedPopupViewPicture();
+    closedPopupViewPicture();
   }
 }
 
@@ -115,7 +131,7 @@ function createCards (item) {
   cardsCloneCardsTitle.textContent = item.name;
 
   cardsCloneCardsPhoto.addEventListener('click', function () {
-    toggleOpenedPopupViewPicture();
+    openedPopupViewPicture();
     handleOpenedPopupClickViewPicture(item.link, item.name);
   });
 
@@ -139,7 +155,7 @@ initialCards.forEach(function (item) {
 });
 
 buttonPopupOpenedEditing.addEventListener('click', () => {
-  toggleOpenedPopupEdit();
+  openedPopupEdit();
   handleOpenedPopupClickEdit();
 });
 
@@ -154,11 +170,11 @@ popupEditing.addEventListener('click', (event) => {
 formEdit.addEventListener('submit', (evt) => {
   handlePopupDefault(evt);
   handleFormSubmit();
-  toggleOpenedPopupEdit();
+  openedPopupEdit();
 });
 
 buttonPopupOpenedCardsAdd.addEventListener('click', () => {
-  toggleOpenedPopupCardsAdd();
+  openedPopupCardsAdd();
 });
 
 buttonPopupCloseCardsAdd.addEventListener('click', () => {
@@ -185,5 +201,7 @@ formCardsAdd.addEventListener('submit', function (event) {
   photo.value = '';
   appellation.value = '';
 
-  toggleOpenedPopupCardsAdd();
+  closedPopupCardsAdd();
 });
+
+enableValidation(arrayValidation);
