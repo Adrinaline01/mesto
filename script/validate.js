@@ -37,6 +37,8 @@ const setEventListeners = (formElement, arrayValidation) => {
       toggleButtonState(inputList, buttonElement);
     });
   });
+
+  
 };
 
 const enableValidation = (arrayValidation) => {
@@ -64,3 +66,15 @@ const toggleButtonState = (inputList, buttonElement) => {
   }
 };
 
+const resetValidation = (formElement, arrayValidation) => {
+  const {inputSelector, submitButtonSelector, ...restConfig} = arrayValidation;
+
+  const inputList = Array.from(formElement.querySelectorAll(inputSelector));
+  const buttonElement = formElement.querySelector(submitButtonSelector);
+
+  toggleButtonState(inputList, buttonElement);
+
+  inputList.forEach((inputElement) => {
+    hideInputError(formElement, inputElement, restConfig);
+  });
+};

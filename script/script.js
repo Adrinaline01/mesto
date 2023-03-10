@@ -63,6 +63,10 @@ function openPopupEdit () {
   openPopup(popupEditing);
 }
 
+function closePopupEdit() {
+  closePopup(popupEditing);
+}
+
 function handleOpenedPopupClickEdit () {
   inputName.value = profileName.textContent;
   inputActivity.value = profileActivity.textContent;
@@ -166,6 +170,7 @@ initialCards.forEach(function (item) {
 });
 
 buttonPopupOpenedEditing.addEventListener('click', () => {
+  resetValidation(formEdit, arrayValidation);
   openPopupEdit();
   handleOpenedPopupClickEdit();
 });
@@ -178,14 +183,17 @@ formEdit.addEventListener('submit', (evt) => {
   handlePopupDefault(evt);
   handleFormSubmit();
   openPopupEdit();
+  closePopupEdit();
 });
 
 buttonPopupOpenedCardsAdd.addEventListener('click', () => {
+  resetValidation(formCardsAdd, arrayValidation);
   openPopupCardsAdd();
 });
 
 popupCardsAdd.addEventListener('click', (event) => {
   handleOverlayClickCardsAdd(event);
+
 });
 
 
