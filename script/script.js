@@ -27,6 +27,8 @@ const buttonPopupCloseViewPicture = document.querySelector('.popup__close-btn_vi
 const photo = document.querySelector('.popup__input_content_link');
 const appellation = document.querySelector('.popup__input_content_appellation');
 
+const buttonCloseList = document.querySelectorAll('.popup__close-btn');
+
 const arrayValidation = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -42,14 +44,22 @@ function handlePopupDefault (evt) {
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupEscape);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupEscape);
+}
+
+function closePopupEscape(event) {
+  if (event.key === 'Escape') {
+    closePopup(document.querySelector('.popup_opened'));
+  }
 }
 
 
-function openedPopupEdit () {
+function openPopupEdit () {
   openPopup(popupEditing);
 }
 
@@ -60,6 +70,7 @@ function handleOpenedPopupClickEdit () {
 
 function handleClosePopupClickEdit () {
   closePopup(popupEditing);
+  closePopupEscape(popupEditing);
 }
 
 function handleOverlayClickEdit (event) {
@@ -74,29 +85,29 @@ function handleFormSubmit () {
     profileActivity.textContent = inputActivity.value;
   }
 
-function openedPopupCardsAdd () {
+function openPopupCardsAdd () {
   openPopup(popupCardsAdd);
 }
 
-function closedPopupCardsAdd () {
+function closePopupCardsAdd () {
   closePopup(popupCardsAdd);
 }
 
 function handleClosePopupClickCardsAdd () {
-  closedPopupCardsAdd();
+  closePopupCardsAdd();
 }
 
 function handleOverlayClickCardsAdd (event) {
   if (event.target === event.currentTarget) {
-    closedPopupCardsAdd();
+    closePopupCardsAdd();
   }
 }
 
-function openedPopupViewPicture () {
+function openPopupViewPicture () {
   openPopup(popupViewPicture);
 }
 
-function closedPopupViewPicture () {
+function closePopupViewPicture () {
   closePopup(popupViewPicture);
 }
 
@@ -107,12 +118,12 @@ function handleOpenedPopupClickViewPicture (item, event) {
 }
 
 function handleClosePopupClickViewPicture () {
-  closedPopupViewPicture();
+  closePopupViewPicture();
 }
 
 function handleOverlayClickViewPicture (event) {
   if (event.target === event.currentTarget) {
-    closedPopupViewPicture();
+    closePopupViewPicture();
   }
 }
 
@@ -131,7 +142,7 @@ function createCards (item) {
   cardsCloneCardsTitle.textContent = item.name;
 
   cardsCloneCardsPhoto.addEventListener('click', function () {
-    openedPopupViewPicture();
+    openPopupViewPicture();
     handleOpenedPopupClickViewPicture(item.link, item.name);
   });
 
@@ -155,12 +166,8 @@ initialCards.forEach(function (item) {
 });
 
 buttonPopupOpenedEditing.addEventListener('click', () => {
-  openedPopupEdit();
+  openPopupEdit();
   handleOpenedPopupClickEdit();
-});
-
-buttonPopupCloseEditing.addEventListener('click', () => {
-  handleClosePopupClickEdit();
 });
 
 popupEditing.addEventListener('click', (event) => {
@@ -170,22 +177,17 @@ popupEditing.addEventListener('click', (event) => {
 formEdit.addEventListener('submit', (evt) => {
   handlePopupDefault(evt);
   handleFormSubmit();
-  openedPopupEdit();
+  openPopupEdit();
 });
 
 buttonPopupOpenedCardsAdd.addEventListener('click', () => {
-  openedPopupCardsAdd();
-});
-
-buttonPopupCloseCardsAdd.addEventListener('click', () => {
-  handleClosePopupClickCardsAdd ();
+  openPopupCardsAdd();
 });
 
 popupCardsAdd.addEventListener('click', (event) => {
   handleOverlayClickCardsAdd(event);
 });
 
-buttonPopupCloseViewPicture.addEventListener('click', handleClosePopupClickViewPicture);
 
 popupViewPicture.addEventListener('click', (event) => {
   handleOverlayClickViewPicture(event);
@@ -201,7 +203,17 @@ formCardsAdd.addEventListener('submit', function (event) {
   photo.value = '';
   appellation.value = '';
 
-  closedPopupCardsAdd();
+  closePopupCardsAdd();
 });
+
+buttonCloseList.forEach( (btn) => {
+  const popup = btn.closest('.popup');
+  btn.addEventListener('click', () => closePopup(popup)); 
+  popup.addEventListener('mousedown',(event) => {
+    if (event.target === event.currentTarget) { 
+      closePopup(popup); 
+    } 
+  });
+}) 
 
 enableValidation(arrayValidation);
