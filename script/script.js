@@ -1,6 +1,6 @@
-import { FormValidator } from './validate.js';
+import { FormValidator } from './FormValidator.js';
 import { initialCards } from './initialcards.js';
-import { Card } from './cards.js';
+import { Card } from './Card.js';
 
 const arrayValidation = {
   formSelector: '.popup__form',
@@ -8,7 +8,7 @@ const arrayValidation = {
   submitButtonSelector: '.popup__save-btn',
   inputErrorClass: 'popup__input_error',
   errorClass: 'popup__error_visible'
-};             
+};
 
 const formEdit = document.querySelector('.popup__form_profile')
 
@@ -34,8 +34,14 @@ const appellation = document.querySelector('.popup__input_content_appellation');
 
 const buttonCloseList = document.querySelectorAll('.popup__close-btn');
 
+const popupSignature = document.querySelector('.popup__signature');
+const popupPicture = document.querySelector('.popup__picture');
+
+const popupVievPicture = document.querySelector('.popup_view-picture');
+
 const validationProfile = new FormValidator(arrayValidation, formEdit);
 const validationAddCard = new FormValidator(arrayValidation, formCardsAdd);
+
 
 function handlePopupDefault (evt) {
   evt.preventDefault();
@@ -57,6 +63,12 @@ function closePopupEscape(event) {
   }
 }
 
+function openPopupVievPicture(name, link) {
+  popupSignature.textContent = name;
+  popupPicture.alt = name;
+  popupPicture.src = link;
+  openPopup(popupVievPicture);
+}
 
 function openPopupEdit () {
   openPopup(popupEditing);
@@ -98,11 +110,11 @@ function handleOverlayClickCardsAdd (event) {
 }
 
 function renderCards (cardElement) { 
-  cardsList.append(cardElement);
+  cardsList.prepend(cardElement);
 }
 
 function createCard(item) {
-  const card = new Card(item);
+  const card = new Card(item, '.cards-template', openPopupVievPicture);
   const cardElement = card.generateCard();
 
   return cardElement;
@@ -121,12 +133,9 @@ validationAddCard.toggleButtonState();
 
 buttonPopupOpenedEditing.addEventListener('click', () => {
   validationProfile.toggleButtonState();
+  validationProfile.resetValidation();
   openPopupEdit();
   handleOpenedPopupClickEdit();
-});
-
-popupEditing.addEventListener('click', (event) => {
-  handleOverlayClickEdit(event);
 });
 
 formEdit.addEventListener('submit', (evt) => {
@@ -140,13 +149,6 @@ buttonPopupOpenedCardsAdd.addEventListener('click', () => {
   openPopupCardsAdd();
 });
 
-popupCardsAdd.addEventListener('click', (event) => {
-  handleOverlayClickCardsAdd(event);
-
-});
-
-
-
 formCardsAdd.addEventListener('submit', function (event) {
   handlePopupDefault(event);
 
@@ -155,12 +157,10 @@ formCardsAdd.addEventListener('submit', function (event) {
 
   renderCards(createCard(inputValue));
 
-  photo.value = '';
-  appellation.value = '';
+  event.target.reset();
 
-  validationAddCard.toggleButtonState();
+  validationAddCard.resetValidation();
 
-  
   closePopupCardsAdd();
 });
 
