@@ -1,6 +1,6 @@
 import './index.css';
 
-import FormValidator from './components/FormValidator';
+import FormValidator from './components/FormValidator.js';
 import {initialCards} from './utils//initialcards.js';
 import Card from './components/Card.js';
 import Section from './components/Section.js';
@@ -46,7 +46,7 @@ const validationAddCard = new FormValidator(arrayValidation, formCardsAdd);
 const addSection = new Section({
   items: initialCards,
   renderer: (item) => {
-    addSection.addItem(renderCards(item));
+    addSection.addItem(createCard(item));
   },
 },
   arrayValidation.elements
