@@ -1,13 +1,13 @@
 import './index.css';
 
-import FormValidator from './components/FormValidator.js';
-import {initialCards} from './utils//initialcards.js';
-import Card from './components/Card.js';
-import Section from './components/Section.js';
-import PopupWithImage from './components/PopupWithImage.js';
-import PopupWithForm from './components/PopupWithForm.js';
-import UserInfo from './components/UserInfo.js';
-import { arrayValidation, buttonPopupOpenedEditing, buttonPopupOpenedCardsAdd, formEdit, formCardsAdd } from './utils/constants.js';
+import FormValidator from '../components/FormValidator.js';
+import {initialCards} from '../utils//initialcards.js';
+import Card from '../components/Card.js';
+import Section from '../components/Section.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
+import { arrayValidation, buttonPopupOpenedEditing, buttonPopupOpenedCardsAdd, formEdit, formCardsAdd } from '../utils/constants.js';
 
 
 // const formEdit = document.querySelector('.popup__form_profile');
@@ -61,10 +61,10 @@ const popupVievPicture = new PopupWithImage('.popup_view-picture');
 const userInfo = new UserInfo(arrayValidation);
 
 const inputName = formEdit.elements.name;
-const inputActivity = formEdit.elements.activity;
+const inputActivity = formEdit.elements.about;
 
-function handleCardClick(elementImage) {
-  popupVievPicture.openPopup(elementImage);
+function handleCardClick(name, link) {
+  popupVievPicture.openPopup(name, link);
 }
 
 function handleProfileForm(evt, data) {

@@ -13,7 +13,7 @@ export default class UserInfo {
 
   setUserInfo(data) {
     const nameInput = data.name;
-    const activityInput = data.activity;
+    const activityInput = data.about;
     this._name.textContent = nameInput;
     this._activity.textContent = activityInput;
   }
