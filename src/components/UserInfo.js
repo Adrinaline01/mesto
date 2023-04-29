@@ -7,14 +7,11 @@ export default class UserInfo {
   getUserInfo() {
     const name = this._name.textContent;
     const activity = this._activity.textContent;
-    const data = {name: name, activity: activity};
-    return data;
+    return {name, activity};
   }
 
-  setUserInfo(data) {
-    const nameInput = data.name;
-    const activityInput = data.about;
-    this._name.textContent = nameInput;
-    this._activity.textContent = activityInput;
+  setUserInfo({name, about}) {
+    this._name.textContent = name;
+    this._activity.textContent = about;
   }
 }

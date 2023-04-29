@@ -29,15 +29,6 @@ export default class Popup {
       if (evt.target === this._popup) {
         this.closePopup();
       };
-  });
-    // this._popup.querySelector('.popup__close-btn').forEach( (btn) => {
-    //   const popup = btn.closest('.popup');
-    //   btn.addEventListener('click', () => this.closePopup()); 
-    //   popup.addEventListener('mousedown',(event) => {
-    //     if (event.target === event.currentTarget) { 
-    //       this.closePopup(); 
-    //     } 
-    //   });
-    // });
+    });
   }
 }
