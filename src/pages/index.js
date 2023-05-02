@@ -23,6 +23,8 @@ import { selectorAll,
   inputContentActivity
 } from '../utils/constants.js';
 
+let userId;
+
 
 const validationProfile = new FormValidator(selectorAll, formEdit);
 const validationAddCard = new FormValidator(selectorAll, formCardsAdd);
@@ -30,8 +32,8 @@ const validationEditAvatar = new FormValidator(selectorAll, formEditAvatar);
 
 
 const addSection = new Section({
-  renderer: (item, myId) => {
-    addSection.addItem(createCard(item, myId));
+  renderer: (item) => {
+    addSection.addItem(createCard(item));
   },
 },
   selectorAll.elements
@@ -65,14 +67,14 @@ function handleProfileForm(evt, data) {
 
 function handleEditCards(evt, data) {
   evt.preventDefault();
-  renderLoading(true. popupCardsAdd);
+  renderLoading(true, popupCardsAdd);
   loadingNewCard(data);
   validationAddCard.toggleButtonState();
 }
 
 function handleAvatarEditing(evt, data) {
   evt.preventDefault();
-  renderLoading(true, popupEditAvatar);
+  renderLoading(true, popupEditingAvatar);
   editingAvatar(data);
   validationEditAvatar.toggleButtonState();
 }
@@ -101,52 +103,57 @@ buttonProfileAvatarEdit.addEventListener('click', () => {
   popupEditingAvatar.openPopup();
 });
 
-function renderError(err) {
-  result.textContent = '';
-  error.textContent = err;
-}
+// function renderError(err) {
+//   result.textContent = '';
+//   error.textContent = err;
+// }
 
-function createCard(item, myId) {
+function createCard(item) {
   const card = new Card(item, 
                         '.cards-template', 
                         handleCardClick,
                         dislikeCard,
                         likeCard,
                         confirmButtonDeleteCard,
-                        myId);
+                        userId);
   const cardElement = card.generateCard();
 
   return cardElement;
 }
 
 const api = new Api({
-  baseUrl: 'https://nomoreparties.co/v1/cohort-64',
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-64',
   headers: {
     authorization: 'b9022504-2467-4a75-a987-32a0379324c9',
     'Content-Type': 'application/json'
   }
 });
 
+
+
 function initialAll() {
-  Promise.all([api.initialUsers(), api.initialFromServer()])
-    ,then((res) => {
+  Promise.all([api.initialUsers(), api.initCardsFromServer()])
+    .then((res) => {
       userInfo.setUserInfo(res[0]);
       userInfo.setAvatarLink(res[0]);
-      addSection.renderItems(res[1].reverse(), res[0]);
+      userId = res[0]._id;
+      addSection.renderItems(res[1].reverse());
     })
     .catch((err) => {
-      renderError(`Ошибка: ${err}`);
+      console.log(`Ошибка: ${err}`);
     });
 }
+
+initialAll();
 
 function deleteCardOnServer(card, cardId) {
   api.deleteCardFromServer(cardId)
     .then(() => {
-      card.delereCard();
+      card.deleteCard();
       popupConfirmDelete.closePopup(card, cardId);
     })
     .catch((err) => {
-      renderError(`Ошибка: ${err}`);
+      console.log(`Ошибка: ${err}`);
     });
 }
 
@@ -156,17 +163,17 @@ function likeCard(card, likeId) {
       card.displayLikes(res.likes);
     })
     .catch((err) => {
-      renderError(`Ошибка: ${err}`);
+      console.log(`Ошибка: ${err}`);
     });
 }
 
 function dislikeCard(card, likeId) {
   api.dislikeCards(likeId)
     .then((res) => {
-      card.showLikes(res.likes);
+      card.displayLikes(res.likes);
     })
     .catch((err) => {
-      renderError(`Ошибка: ${err}`);
+      console.log(`Ошибка: ${err}`);
     });
 }
 
@@ -177,7 +184,7 @@ function editingAvatar(avatar) {
       popupEditingAvatar.closePopup();
     })
     .catch((err) => {
-      renderError(`Ошибка: ${err}`);
+      console.log(`Ошибка: ${err}`);
     })
     .finally(() => {
       renderLoading(false, popupAvatarEditing);
@@ -191,7 +198,7 @@ function loadingNewCard(data) {
       popupCardsAdd.closePopup();
     })
     .catch((err) => {
-      renderError(`Ошибка: ${err}`);
+      console.log(`Ошибка: ${err}`);
     })
     .finally(() => {
       renderLoading(false, popupAddCards);
@@ -205,7 +212,7 @@ function loadingUserInfo(data) {
       popupEditing.closePopup();
     })
     .catch((err) => {
-      renderError(`Ошибка: ${err}`);
+      console.log(`Ошибка: ${err}`);
     })
     .finally(() => {
       renderLoading(false, popupEditingProfile);
@@ -214,12 +221,12 @@ function loadingUserInfo(data) {
 
 function renderLoading(isLoading, popup) {
   if (isLoading) {
-    popup.querySelector(selectorsAll.formLoading).classList.add('form__loading_visible');
-    popup.querySelector(selectorsAll.submitButtonSelector).classList.add('popup__save-btn_visible');
+    popup.querySelector(selectorAll.formLoading).classList.add('form__loading_visible');
+    popup.querySelector(selectorAll.submitButtonSelector).classList.add('popup__save-btn_visible');
   }
   else {
-    popup.querySelector(selectorsAll.formLoading).classList.remove('form__loading_visible');
-    popup.querySelector(selectorsAll.submitButtonSelector).classList.remove('popup__save-btn_visible');
+    popup.querySelector(selectorAll.formLoading).classList.remove('form__loading_visible');
+    popup.querySelector(selectorAll.submitButtonSelector).classList.remove('popup__save-btn_visible');
   }
 }
 
@@ -241,4 +248,4 @@ popupCardsAdd.setEventListeners();
 popupVievPicture.setEventListeners();
 popupEditingAvatar.setEventListeners();
 
-initialAll()
+

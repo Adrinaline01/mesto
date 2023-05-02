@@ -1,5 +1,5 @@
 export default class Card {
-  constructor({ data, likes = [], _id, owner }, 
+  constructor({ link, name, likes = [], _id, owner },
     cardSelector, 
     handleCardClick,
     dislikeCards,
@@ -7,8 +7,8 @@ export default class Card {
     buttonDeleteCard,
     myID
   ) {
-    this._link = data.link;
-    this._name = data.name;
+    this._link = link;
+    this._name = name;
     this._likes = likes;
     this._counter = likes.length;
     this._id = _id;
@@ -18,17 +18,15 @@ export default class Card {
     this._dislakeCard = dislikeCards;
     this._likeCards = likeCards;
     this._buttonDeleteCard = buttonDeleteCard;
-    this._myID = myID;
+    this._myId = myID;
   }
 
   _getTemplate() {
-    const cardElement = document
-    .querySelector(this._cardSelector)
-    .content
-    .querySelector('.cards__item')
-    .cloneNode(true);
-
-    return cardElement;
+    return document
+      .querySelector(this._cardSelector)
+      .content
+      .querySelector('.cards__item')
+      .cloneNode(true);
   }
 
   // _setLikeCardListener() {
@@ -50,8 +48,7 @@ export default class Card {
 
   displayLikes(likes) {
     this._likes = likes;
-    this._counterLikes = this._likes.length;
-    this._counterLikes().textContent = this._counterLikes;
+    this._counterLikes.textContent = this._likes.length;
     if (this._checkLikes(likes)) {
       this._buttonLike.classList.add('cards__like-button_active');
     }
@@ -66,6 +63,7 @@ export default class Card {
     this._cardImage = this._element.querySelector('.cards__photo');
     this._buttonLike = this._element.querySelector('.cards__like-button');
     this._buttonDelete = this._element.querySelector('.cards__removal');
+    this._counterLikes = this._element.querySelector('.cards__like-counter')
 
     this._setEventListeners();
 
@@ -80,10 +78,9 @@ export default class Card {
     this._buttonLike.classList.toggle('cards__like-button_active');
   }
 
-  _deleteCard(evt) {
-    this._buttonDelete = evt.target.closest('.cards__item');
-
-    this._buttonDelete.remove();
+  deleteCard() {
+    this._element.remove();
+    this._element = null;
   }
 
   _setEventListeners() {
@@ -92,7 +89,7 @@ export default class Card {
     });
 
     this._buttonDelete.addEventListener('click', (evt) => {
-      this._deleteCard(evt);
+      this.deleteCard(evt);
     });
 
     this._cardImage.addEventListener('click', () => {

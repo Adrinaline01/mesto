@@ -29,6 +29,7 @@ export default class Api {
 
   initCardsFromServer() {
     return fetch(`${this._baseUrl}/cards`, {
+      method: 'GET',
       headers: {
         authorization: this._authorization,
       },
@@ -38,6 +39,7 @@ export default class Api {
   
   initialUsers() {
     return fetch(`${this._baseUrl}/users/me`, {
+      method: 'GET',
       headers: {
         authorization: this._authorization,
       },
@@ -98,7 +100,7 @@ export default class Api {
         'Content-Type': this._contentType,
       },
       body: JSON.stringify({
-        avatar
+        avatar,
       }),
     })
     .then(res => this._getReportData(res));
