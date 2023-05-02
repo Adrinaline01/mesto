@@ -1,9 +1,24 @@
 export default class Card {
-  constructor(data, cardSelector, handleCardClick) {
+  constructor({data, likes = [], _id, owner}, 
+    cardSelector, 
+    handleCardClick,
+    dislikeCards,
+    likeCards,
+    buttonDeleteCard,
+    myID
+    ) {
     this._link = data.link;
     this._name = data.name;
+    this._likes = likes;
+    this._counter = likes.length;
+    this._id = _id;
+    this._owner = owner._id;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
+    this._dislakeCard = dislikeCards;
+    this._likeCards = likeCards;
+    this._buttonDeleteCard = buttonDeleteCard;
+    this._myID = myID;
   }
 
   _getTemplate() {
@@ -16,11 +31,31 @@ export default class Card {
     return cardElement;
   }
 
+  _checkLikes(likes) {
+    return likes.some(user => user._id === this._myId);
+  }
+
+  _counterLikesCard() {
+    return this._counterLikes;
+  }
+
+  displayLikes(likes) {
+    this._likes = likes;
+    this._counterLikes = this._likes.length;
+    this._counterLikes().textContent = this._counterLikes;
+    if (this._checkLikes(likes)) {
+      this._buttonLike.classList.add('cards__like-button_active');
+    }
+    else {
+      this._buttonLike.classList.remove('cards__like-button_active');
+    }
+  }
+
   generateCard() {
     this._element = this._getTemplate();
 
     this._cardImage = this._element.querySelector('.cards__photo');
-    this._buttonLike = this._element.querySelector('.cards__like');
+    this._buttonLike = this._element.querySelector('.cards__like-button');
     this._buttonDelete = this._element.querySelector('.cards__removal');
 
     this._setEventListeners();
@@ -33,7 +68,7 @@ export default class Card {
   }
 
   _toggleLike() {
-    this._buttonLike.classList.toggle('cards__like_acrive');
+    this._buttonLike.classList.toggle('cards__like-button_active');
   }
 
   _deleteCard(evt) {

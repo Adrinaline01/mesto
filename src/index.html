@@ -17,6 +17,7 @@
       <div class="profile__info">
         <img class="profile__avatar" src="<%=require('./images/jacques-Yves_Cousteau.jpg')%>"
           alt="Фотография знаменитого учёного Жака-Ив Кусто">
+        <button class="profile__avatar-edit" type="button"></button>
         <div class="profile__editable-information">
           <div class="profile__container">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -44,6 +45,7 @@
         <input class="popup__input popup__input_content_activity" id="activity-input" type="text" name="about" placeholder="Введите род деятельности" required minlength="2" maxlength="40">
         <span class="popup__span-input-error activity-input-error" id="error-activity-input"></span>
         <button class="popup__save-btn button popup__save-btn_editing" disabled>Сохранить</button>
+        <div class="form__loading">Загрузка...</div>
       </form>
       <button class="popup__close-btn button popup__close-btn_editing" type="button"></button>
     </div>
@@ -58,6 +60,7 @@
         <input class="popup__input popup__input_content_link" id="link-input" type="url" name="link" required placeholder="Ссылка на картинку">
         <span class="popup__span-input-error link-input-error" id="error-link-input"></span>
         <button class="popup__save-btn button popup__save-btn_cards-add">Создать</button>
+        <div class="form__loading">Загрузка...</div>
       </form>
       <button class="popup__close-btn button popup__close-btn_cards-add" type="button"></button>
     </div>
@@ -73,13 +76,39 @@
     </div>
   </div>
 
+  <div class="popup popup_сonfirm">
+    <div class="popup__container popup__container_confirm">
+      <h2 class="popup__title popup__title_confirm">Вы уверены?</h2>
+      <form class="popup__form popup__form_confirm" name="confirm">
+        <button class="popup__confirm-btn button">Да</button>
+      </form>
+      <button class="popup__close-btn button popup__close-btn_confirm" type="button"></button>
+    </div>
+  </div>
+
+  <div class="popup popup_editing-avatar">
+    <div class="popup__container popup__container_editing-avatar">
+      <h2 class="popup__title popup__title_editing-avatar">Вы уверены?</h2>
+      <form class="popup__form popup__form_editing-avatar">
+        <input class="popup__input popup__input_content_avatar" id="avatar-link-input" type="url" name="link" required placeholder="Ссылка на картинку">
+        <span class="popup__span-input-error link-input-error" id="error-link-avatar-input"></span>
+        <button class="popup__save-btn button popup__save-btn_editing-avatar">Сохранить</button>
+        <div class="form__loading">Загрузка...</div>
+      </form>
+      <button class="popup__close-btn button popup__close-btn_editing-avatar" type="button"></button>
+    </div>
+  </div>
+
   <template class="cards-template">
     <li class="cards__item">
       <button class="cards__removal button" type="button" aria-label="Удалить карточку"></button>
       <img class="cards__photo">
       <div class="cards__depiction">
         <h2 class="cards__title"></h2>
-        <button class="cards__like button" type="button" aria-label="Поставить лайк"></button>
+        <div class="cards__like">
+          <button class="cards__like-button button" type="button" aria-label="Поставить лайк"></button>
+          <p id="number" class="cards__like-counter">0</p>
+        </div>
       </div>
     </li>
   </template>
