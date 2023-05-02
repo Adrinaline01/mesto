@@ -1,12 +1,12 @@
 export default class Card {
-  constructor({data, likes = [], _id, owner}, 
+  constructor({ data, likes = [], _id, owner }, 
     cardSelector, 
     handleCardClick,
     dislikeCards,
     likeCards,
     buttonDeleteCard,
     myID
-    ) {
+  ) {
     this._link = data.link;
     this._name = data.name;
     this._likes = likes;
@@ -30,6 +30,15 @@ export default class Card {
 
     return cardElement;
   }
+
+  // _setLikeCardListener() {
+  //   if (this._checkLikes(this._likes)) {
+  //     this._dislakeCard(this, this._id);
+  //   }
+  //   else (
+  //     this._likeCards(this, this._id)
+  //   )
+  // }
 
   _checkLikes(likes) {
     return likes.some(user => user._id === this._myId);

@@ -1,14 +1,14 @@
 import './index.css';
 
 import FormValidator from '../components/FormValidator.js';
-import { initialCards } from '../utils//initialcards.js';
+// import { initialCards } from '../utils//initialcards.js';
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
-import Api from '../components/Api';
-import PopupWithConfirm from '../components/PopupWithConfirm';
+import Api from '../components/Api.js';
+import PopupWithConfirm from '../components/PopupWithConfirm.js';
 import { selectorAll,
   buttonPopupOpenedEditing, 
   buttonPopupOpenedCardsAdd, 
@@ -24,10 +24,9 @@ import { selectorAll,
 } from '../utils/constants.js';
 
 
-
 const validationProfile = new FormValidator(selectorAll, formEdit);
 const validationAddCard = new FormValidator(selectorAll, formCardsAdd);
-const validationEditAvatar = new FormValidator(selectorAll, formEditAvatar)
+const validationEditAvatar = new FormValidator(selectorAll, formEditAvatar);
 
 
 const addSection = new Section({
@@ -195,7 +194,7 @@ function loadingNewCard(data) {
       renderError(`Ошибка: ${err}`);
     })
     .finally(() => {
-      renderLoading(false, popupAddNewCard);
+      renderLoading(false, popupAddCards);
     });
 }
 
@@ -209,7 +208,7 @@ function loadingUserInfo(data) {
       renderError(`Ошибка: ${err}`);
     })
     .finally(() => {
-      renderLoading(false, popupEditProfile);
+      renderLoading(false, popupEditingProfile);
     });
 }
 
@@ -233,6 +232,13 @@ validationProfile.enableValidation();
 validationAddCard.enableValidation();
 validationProfile.toggleButtonState();
 validationAddCard.toggleButtonState();
+validationEditAvatar.enableValidation();
+validationEditAvatar.toggleButtonState();
+
 popupConfirmDelete.setEventListeners();
+popupEditing.setEventListeners();
+popupCardsAdd.setEventListeners();
+popupVievPicture.setEventListeners();
+popupEditingAvatar.setEventListeners();
 
 initialAll()
