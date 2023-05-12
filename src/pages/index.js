@@ -74,7 +74,7 @@ function handleEditCards(evt, data) {
 
 function handleAvatarEditing(evt, data) {
   evt.preventDefault();
-  renderLoading(true, popupEditingAvatar);
+  renderLoading(true, popupAvatarEditing);
   editingAvatar(data);
   validationEditAvatar.toggleButtonState();
 }
@@ -181,8 +181,8 @@ function dislikeCard(card, likeId) {
     });
 }
 
-function editingAvatar(avatar) {
-  api.loadigNewAvatarOnServer({ avatar: avatar })
+function editingAvatar(data) {
+  api.loadigNewAvatarOnServer(data)
     .then((res) => {
       userInfo.setAvatarLink(res);
       popupEditingAvatar.closePopup();
@@ -196,7 +196,7 @@ function editingAvatar(avatar) {
 }
 
 function loadingNewCard(data) {
-  api.loadingNewCardOnServer({ name: data.title, link: data.link })
+  api.loadingNewCardOnServer(data)
     .then((res) => {
       addSection.addItem(createCard(res, res.owner));
       popupCardsAdd.closePopup();
