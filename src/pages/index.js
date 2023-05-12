@@ -67,7 +67,7 @@ function handleProfileForm(evt, data) {
 
 function handleEditCards(evt, data) {
   evt.preventDefault();
-  renderLoading(true, popupCardsAdd);
+  renderLoading(true, popupAddCards);
   loadingNewCard(data);
   validationAddCard.toggleButtonState();
 }
@@ -121,15 +121,21 @@ function createCard(item) {
   return cardElement;
 }
 
+popupConfirmDelete.setEventListeners();
+popupEditing.setEventListeners();
+popupCardsAdd.setEventListeners();
+popupVievPicture.setEventListeners();
+popupEditingAvatar.setEventListeners();
+
 const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-64',
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-65',
   headers: {
-    authorization: 'b9022504-2467-4a75-a987-32a0379324c9',
+    authorization: 'bdaf5f64-aca0-47b5-811d-20bc0a7efcbb',
     'Content-Type': 'application/json'
   }
 });
 
-
+initialAll();
 
 function initialAll() {
   Promise.all([api.initialUsers(), api.initCardsFromServer()])
@@ -143,8 +149,6 @@ function initialAll() {
       console.log(`Ошибка: ${err}`);
     });
 }
-
-initialAll();
 
 function deleteCardOnServer(card, cardId) {
   api.deleteCardFromServer(cardId)
@@ -178,7 +182,7 @@ function dislikeCard(card, likeId) {
 }
 
 function editingAvatar(avatar) {
-  api.loadigNewAvatarOnServer({avatar})
+  api.loadigNewAvatarOnServer({ avatar: avatar })
     .then((res) => {
       userInfo.setAvatarLink(res);
       popupEditingAvatar.closePopup();
@@ -230,10 +234,6 @@ function renderLoading(isLoading, popup) {
   }
 }
 
-
-addSection.renderItems();
-popupEditing.setEventListeners();
-popupCardsAdd.setEventListeners();
 popupVievPicture.setEventListeners();
 validationProfile.enableValidation();
 validationAddCard.enableValidation();
@@ -241,11 +241,5 @@ validationProfile.toggleButtonState();
 validationAddCard.toggleButtonState();
 validationEditAvatar.enableValidation();
 validationEditAvatar.toggleButtonState();
-
-popupConfirmDelete.setEventListeners();
-popupEditing.setEventListeners();
-popupCardsAdd.setEventListeners();
-popupVievPicture.setEventListeners();
-popupEditingAvatar.setEventListeners();
 
 
