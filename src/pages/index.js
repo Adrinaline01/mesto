@@ -17,8 +17,8 @@ import { selectorAll,
   formCardsAdd,
   formEditAvatar,
   popupEditingProfile,
-  popupAvatarEditing,
   popupAddCards,
+  popupAvatarEditing,
   inputContentName,
   inputContentActivity
 } from '../utils/constants.js';
@@ -46,9 +46,6 @@ const popupConfirmDelete = new PopupWithConfirm('.popup_сonfirm', handleDeleteC
 const popupEditingAvatar = new PopupWithForm('.popup_editing-avatar', handleAvatarEditing);
 
 const userInfo = new UserInfo(selectorAll);
-
-// const inputName = formEdit.elements.name;
-// const inputActivity = formEdit.elements.about;
 
 function confirmButtonDeleteCard(card, cardId) {
   popupConfirmDelete.openPopup(card, cardId);
@@ -226,11 +223,11 @@ function loadingUserInfo(data) {
 function renderLoading(isLoading, popup) {
   if (isLoading) {
     popup.querySelector(selectorAll.formLoading).classList.add('form__loading_visible');
-    popup.querySelector(selectorAll.submitButtonSelector).classList.add('popup__save-btn_visible');
+    popup.querySelector(selectorAll.submitButtonSelector).classList.add('popup__save-btn_hidden');
   }
   else {
     popup.querySelector(selectorAll.formLoading).classList.remove('form__loading_visible');
-    popup.querySelector(selectorAll.submitButtonSelector).classList.remove('popup__save-btn_visible');
+    popup.querySelector(selectorAll.submitButtonSelector).classList.remove('popup__save-btn_hidden');
   }
 }
 

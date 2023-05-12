@@ -4,7 +4,7 @@ export default class Card {
     handleCardClick,
     dislikeCards,
     likeCards,
-    buttonDeleteCard,
+    confirmButtonDeleteCard,
     myID
   ) {
     this._link = link;
@@ -17,7 +17,7 @@ export default class Card {
     this._handleCardClick = handleCardClick;
     this._dislakeCard = dislikeCards;
     this._likeCards = likeCards;
-    this._buttonDeleteCard = buttonDeleteCard;
+    this._confirmButtonDeleteCard = confirmButtonDeleteCard;
     this._myId = myID;
   }
 
@@ -28,15 +28,6 @@ export default class Card {
       .querySelector('.cards__item')
       .cloneNode(true);
   }
-
-  // _setLikeCardListener() {
-  //   if (this._checkLikes(this._likes)) {
-  //     this._dislakeCard(this, this._id);
-  //   }
-  //   else (
-  //     this._likeCards(this, this._id)
-  //   )
-  // }
 
   _checkLikes(likes) {
     return likes.some(user => user._id === this._myId);
@@ -71,7 +62,7 @@ export default class Card {
     this._cardImage = this._element.querySelector('.cards__photo');
     this._buttonLike = this._element.querySelector('.cards__like-button');
     this._buttonDelete = this._element.querySelector('.cards__removal');
-    this._counterLikes = this._element.querySelector('.cards__like-counter')
+    this._counterLikes = this._element.querySelector('.cards__like-counter');
 
     this._setEventListeners();
     this.displayLikes(this._likes);
@@ -80,17 +71,20 @@ export default class Card {
     this._cardImage.alt = this._name;
     this._element.querySelector('.cards__title').textContent = this._name;
 
-    return this._element;
+    if (this._owner === this._myId) {
+      return this._element;
+    } else {
+      this._buttonDelete.style.display = "none";
+      return this._element;
+    }
   }
 
   _toggleLike() {
     this._buttonLike.classList.toggle('cards__like-button_active');
   }
 
-  deleteCard(evt) {
-    this._buttonDelete = evt.target.closest('.cards__item');
-
-    this._buttonDelete.remove();
+  deleteCard() {
+    this._element.remove();
   }
 
   _setEventListeners() {
@@ -98,8 +92,8 @@ export default class Card {
       this._setLikeOnServer();
     });
 
-    this._buttonDelete.addEventListener('click', (evt) => {
-      this.deleteCard(evt);
+    this._buttonDelete.addEventListener('click', () => {
+      this._confirmButtonDeleteCard(this, this._id);
     });
 
     this._cardImage.addEventListener('click', () => {

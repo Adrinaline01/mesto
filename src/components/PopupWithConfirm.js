@@ -14,12 +14,13 @@ export default class PopupWithConfirm extends Popup {
   }
 
   deleteEventListener() {
-    this._popup.querySelector('.popup__form_confirm').addEventListener('submit', () => {
-      this._deleteCardFromServer(this._card, this._cardId);
+    this._popup.querySelector('.popup__form_confirm').addEventListener('submit', (evt) => {
+      this._deleteCardFromServer(evt, this._card, this._cardId);
     });
   }
 
-  // closePopup() {
-  //   super.closePopup();
-  // }
+  closePopup() {
+    this._popup.querySelector('.popup__form_confirm').reset();
+    super.closePopup();
+  }
 }
