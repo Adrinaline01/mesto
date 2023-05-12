@@ -11,7 +11,7 @@ export const selectorAll = {
   popupAvatar: '.popup__input_content_avatar',
   popupAppellation: '.popup__input_content_appellation',
   popupLink: '.popup__input_content_link',
-  formLoading: '.form__loading'
+  formLoading: '.popup__form-loading'
 };
 
 export const buttonPopupOpenedEditing = document.querySelector('.profile__edit-button');
