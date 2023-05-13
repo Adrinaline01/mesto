@@ -42,7 +42,7 @@ const addSection = new Section({
 const popupEditing = new PopupWithForm('.popup_editing', handleProfileForm);
 const popupCardsAdd = new PopupWithForm('.popup_cards-add', handleEditCards);
 const popupVievPicture = new PopupWithImage('.popup_view-picture');
-const popupConfirmDelete = new PopupWithConfirm('.popup_сonfirm', handleDeleteCard);
+const popupConfirmDelete = new PopupWithConfirm('.popup_confirm', handleDeleteCard);
 const popupEditingAvatar = new PopupWithForm('.popup_editing-avatar', handleAvatarEditing);
 
 const userInfo = new UserInfo(selectorAll);
