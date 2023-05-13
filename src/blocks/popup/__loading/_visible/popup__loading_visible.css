@@ -1,0 +1,25 @@
+.popup__loading_visible {
+  display: flex;
+  margin: -50px auto 0 auto;
+  border-radius: 2px;
+  width: 358px;
+  min-height: 50px;
+  color: #FFFFFF;
+  background: #000000;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 767px) {
+  .popup__loading_visible {
+    width: 238px;
+    min-height: 46px;
+    margin-top: -70px;
+    margin-bottom: 25px;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

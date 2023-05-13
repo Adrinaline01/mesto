@@ -222,11 +222,11 @@ function loadingUserInfo(data) {
 
 function renderLoading(isLoading, popup) {
   if (isLoading) {
-    popup.querySelector(selectorAll.formLoading).classList.add('popup__form-loading_visible');
+    popup.querySelector(selectorAll.formLoading).classList.add('popup__loading_visible');
     popup.querySelector(selectorAll.submitButtonSelector).classList.add('popup__save-btn_hidden');
   }
   else {
-    popup.querySelector(selectorAll.formLoading).classList.remove('popup__form-loading_visible');
+    popup.querySelector(selectorAll.formLoading).classList.remove('popup__loading_visible');
     popup.querySelector(selectorAll.submitButtonSelector).classList.remove('popup__save-btn_hidden');
   }
 }
