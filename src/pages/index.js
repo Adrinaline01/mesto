@@ -1,7 +1,6 @@
 import './index.css';
 
 import FormValidator from '../components/FormValidator.js';
-// import { initialCards } from '../utils//initialcards.js';
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
@@ -16,15 +15,13 @@ import { selectorAll,
   formEdit, 
   formCardsAdd,
   formEditAvatar,
-  popupEditingProfile,
-  popupAddCards,
-  popupAvatarEditing,
   inputContentName,
   inputContentActivity
 } from '../utils/constants.js';
 
 let userId;
 
+const cardsTemplate = '.cards-template';
 
 const validationProfile = new FormValidator(selectorAll, formEdit);
 const validationAddCard = new FormValidator(selectorAll, formCardsAdd);
@@ -58,20 +55,20 @@ function handleCardClick(name, link) {
 
 function handleProfileForm(evt, data) {
   evt.preventDefault();
-  renderLoading(true, popupEditingProfile);
+  popupEditing.renderLoading(true);
   loadingUserInfo(data);
 }
 
 function handleEditCards(evt, data) {
   evt.preventDefault();
-  renderLoading(true, popupAddCards);
+  popupCardsAdd.renderLoading(true);
   loadingNewCard(data);
   validationAddCard.toggleButtonState();
 }
 
 function handleAvatarEditing(evt, data) {
   evt.preventDefault();
-  renderLoading(true, popupAvatarEditing);
+  popupEditingAvatar.renderLoading(true);
   editingAvatar(data);
   validationEditAvatar.toggleButtonState();
 }
@@ -100,14 +97,9 @@ buttonProfileAvatarEdit.addEventListener('click', () => {
   popupEditingAvatar.openPopup();
 });
 
-// function renderError(err) {
-//   result.textContent = '';
-//   error.textContent = err;
-// }
-
 function createCard(item) {
   const card = new Card(item, 
-                        '.cards-template', 
+                        cardsTemplate, 
                         handleCardClick,
                         dislikeCard,
                         likeCard,
@@ -188,7 +180,7 @@ function editingAvatar(data) {
       console.log(`Ошибка: ${err}`);
     })
     .finally(() => {
-      renderLoading(false, popupAvatarEditing);
+      popupEditingAvatar.renderLoading(false);
     });
 }
 
@@ -202,7 +194,7 @@ function loadingNewCard(data) {
       console.log(`Ошибка: ${err}`);
     })
     .finally(() => {
-      renderLoading(false, popupAddCards);
+      popupCardsAdd.renderLoading(false);
     });
 }
 
@@ -216,19 +208,8 @@ function loadingUserInfo(data) {
       console.log(`Ошибка: ${err}`);
     })
     .finally(() => {
-      renderLoading(false, popupEditingProfile);
+      popupEditing.renderLoading(false);
     });
-}
-
-function renderLoading(isLoading, popup) {
-  if (isLoading) {
-    popup.querySelector(selectorAll.formLoading).classList.add('popup__loading_visible');
-    popup.querySelector(selectorAll.submitButtonSelector).classList.add('popup__save-btn_hidden');
-  }
-  else {
-    popup.querySelector(selectorAll.formLoading).classList.remove('popup__loading_visible');
-    popup.querySelector(selectorAll.submitButtonSelector).classList.remove('popup__save-btn_hidden');
-  }
 }
 
 popupVievPicture.setEventListeners();

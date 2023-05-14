@@ -20,7 +20,6 @@ export default class PopupWithConfirm extends Popup {
   }
 
   closePopup() {
-    this._popup.querySelector('.popup__form_confirm').reset();
     super.closePopup();
   }
 }

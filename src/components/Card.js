@@ -74,7 +74,7 @@ export default class Card {
     if (this._owner === this._myId) {
       return this._element;
     } else {
-      this._buttonDelete.style.display = "none";
+      this._buttonDelete.classList.add('cards__removal_hidden');
       return this._element;
     }
   }
